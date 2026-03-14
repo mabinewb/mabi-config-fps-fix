@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mabi FPS Fix Web</title>
+  <meta name="description" content="마비노기 설정 XML 파일의 간소화 기능 시작 FPS 값을 -1로 변경해 항상 간소화가 작동하도록 도와주는 도구">
+  <link rel="icon" href="./favicon.ico">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero card">
+      <div>
+        <p class="eyebrow">마비노기 설정 파일 도구</p>
+        <h1>Mabi FPS Fix Web</h1>
+        <p class="hero-copy">
+          <span class="hero-line">마비노기 설정 XML 파일의 <code>DummyCharRenderModeFPS</code> 값을 <code>-1</code>로 바꿔 드립니다.</span>
+          <span class="hero-line">간소화 기능이 항상 작동하도록 적용할 때 사용할 수 있습니다.</span>
+        </p>
+      </div>
+      <div class="hero-badges">
+        <span>간편 수정</span>
+        <span>같은 파일명 다운로드</span>
+        <span>설정 폴더에 덮어쓰기</span>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="card note-card">
+        <h2>사용 방법</h2>
+        <ol class="help-list">
+          <li>먼저 게임 안에서, 바꿔도 괜찮은 아무 설정이나 한 번 변경한 뒤 저장해 주세요.</li>
+          <li>저장 후 <code>%APPDATA%\Mabinogi\Setting</code> 폴더로 이동해 주세요.</li>
+          <li>탐색기에서 <strong>수정된 시간</strong> 기준으로 정렬하시면 방금 저장된 XML 파일을 찾기 쉽습니다.</li>
+          <li>이 페이지에서 해당 XML 파일을 선택해 주세요.</li>
+          <li><strong>수정 파일 다운로드</strong>를 누르시면 <code>DummyCharRenderModeFPS</code>가 <code>-1</code>로 바뀐 파일을 내려받을 수 있습니다.</li>
+          <li>다운로드한 파일을 같은 폴더에 다시 덮어써 주시면 됩니다.</li>
+        </ol>
+      </section>
+
+      <section class="card uploader-card">
+        <h2>파일 선택</h2>
+        <label id="dropZone" class="drop-zone" for="fileInput">
+          <input id="fileInput" type="file" accept=".xml">
+          <strong>파일을 끌어오시거나 클릭해서 선택해 주세요</strong>
+          <span>게임 설정 XML 파일만 지원합니다</span>
+        </label>
+
+        <div class="path-helper">
+          <span class="meta-label">기본 설정 파일 폴더</span>
+          <div class="path-helper-row">
+            <code id="defaultPathText">%APPDATA%\Mabinogi\Setting</code>
+            <button id="copyPathButton" class="ghost inline-button" type="button">경로 복사</button>
+          </div>
+        </div>
+
+        <div class="file-meta">
+          <div>
+            <span class="meta-label">선택 파일</span>
+            <strong id="selectedFile">없음</strong>
+          </div>
+          <div>
+            <span class="meta-label">현재 FPS 값</span>
+            <strong id="currentFps">-</strong>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="processButton" class="primary" disabled>수정 파일 다운로드</button>
+          <button id="clearButton" class="secondary" disabled>선택 초기화</button>
+        </div>
+      </section>
+
+      <section class="card status-card">
+        <h2>처리 상태</h2>
+        <ul class="status-list">
+          <li><span>대상 파일</span><strong>마비노기 설정 XML</strong></li>
+          <li><span>변경 항목</span><strong>DummyCharRenderModeFPS</strong></li>
+          <li><span>적용 값</span><strong>-1</strong></li>
+        </ul>
+
+        <div id="resultBox" class="result-box neutral">
+          파일을 선택하시면 이곳에 처리 결과를 안내해 드립니다.
+        </div>
+      </section>
+
+      <section class="card log-card">
+        <div class="section-head">
+          <h2>작업 로그</h2>
+          <button id="copyLogButton" class="ghost" disabled>로그 복사</button>
+        </div>
+        <pre id="logOutput">준비됨.</pre>
+      </section>
+
+      <section class="card note-card">
+        <h2>안내</h2>
+        <ul>
+          <li>이 도구는 간소화 기능 시작 FPS 값을 <code>-1</code>로 바꾸는 용도입니다.</li>
+          <li>파일이 이미 <code>-1</code> 상태이면 별도 다운로드 없이 안내해 드립니다.</li>
+          <li>설정 파일은 보통 <code>%APPDATA%\Mabinogi\Setting</code> 폴더에 있습니다.</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

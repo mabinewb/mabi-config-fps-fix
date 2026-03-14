@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+build/
+dist/
+release/
+analysis_tools/
+samplexml/
+Client.exe
+option.4191093814.xml.orig
+*.pyc
+*.pyo
+*.pyd

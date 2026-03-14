@@ -1,0 +1,3 @@
+APP_NAME = "Mabi Config XML Tool"
+APP_VERSION = "1.1.0"
+APP_TITLE = f"{APP_NAME} v{APP_VERSION}"
