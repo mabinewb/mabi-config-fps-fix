@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mabi FPS Fix Web</title>
-  <meta name="description" content="마비노기에서 내보낸 .muo 환경설정 파일의 간소화 기능 시작 FPS 값을 -1로 변경하는 도구">
+  <meta name="description" content="마비노기 설정 파일의 간소화 기능 시작 FPS 값을 -1로 변경하는 도구">
   <link rel="icon" href="./favicon.ico">
   <link rel="stylesheet" href="./styles.css">
   <script src="https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js" defer></script>
@@ -17,14 +17,14 @@
         <p class="eyebrow">마비노기 설정 파일 도구</p>
         <h1>Mabi FPS Fix Web</h1>
         <p class="hero-copy">
-          <span class="hero-line">마비노기에서 내보낸 <code>.muo</code> 환경설정 파일의 <code>DummyCharRenderModeFPS</code> 값을 <code>-1</code>로 바꿔 드립니다.</span>
-          <span class="hero-line">수정된 파일은 <strong>환경설정 → 환경설정 관리</strong> 메뉴의 가져오기 버튼으로 적용할 수 있습니다.</span>
+          <span class="hero-line">마비노기 설정 파일의 <code>DummyCharRenderModeFPS</code> 값을 <code>-1</code>로 바꿔 드립니다.</span>
+          <span class="hero-line">수정된 파일은 <strong>환경설정 → 환경설정 내보내기/가져오기</strong> 메뉴의 가져오기 버튼으로 적용할 수 있습니다.</span>
         </p>
       </div>
       <div class="hero-badges">
         <span>간편 수정</span>
         <span>브라우저 안에서 처리</span>
-        <span>가져오기용 MUO 다운로드</span>
+        <span>MUO 지원</span>
       </div>
     </header>
 
@@ -32,23 +32,23 @@
       <section class="card note-card">
         <h2>사용 방법</h2>
         <ol class="help-list">
-          <li>게임에서 <strong>환경설정 → 환경설정 관리</strong> 메뉴를 여세요.</li>
-          <li><strong>내보내기</strong> 버튼을 누르고 <strong>환경설정</strong>만 체크하여 내보내세요.</li>
+          <li>게임에서 <strong>환경설정 → 환경설정 내보내기/가져오기</strong> 메뉴를 여세요.</li>
+          <li><strong>내보내기</strong> 버튼을 누르고 <strong>환경설정 → 그래픽-효과</strong>만 체크하여 내보내세요.</li>
           <li>내보낸 파일은 <code>문서\마비노기\설정\목록</code> 폴더에 저장됩니다.</li>
           <li>이 페이지에서 내보낸 <code>.muo</code> 파일을 선택해 주세요.</li>
           <li><strong>수정 MUO 다운로드</strong>를 누르면 FPS 값이 <code>-1</code>로 바뀐 파일을 내려받습니다.</li>
           <li>다운로드한 파일을 <code>문서\마비노기\설정\목록</code> 폴더로 이동하세요.</li>
-          <li><strong>환경설정 → 환경설정 관리</strong>로 돌아가 <strong>가져오기</strong> 버튼을 누르고 수정된 파일을 선택하세요.</li>
-          <li>가져올 항목에서 <strong>환경설정</strong>만 체크한 뒤 확인을 누르세요.</li>
+          <li><strong>환경설정 → 환경설정 내보내기/가져오기</strong>로 돌아가 <strong>가져오기</strong> 버튼을 누르고 수정된 파일을 선택하세요.</li>
+          <li>가져올 항목에서 <strong>환경설정 → 그래픽-효과</strong>만 체크한 뒤 확인을 누르세요.</li>
         </ol>
       </section>
 
       <section class="card uploader-card">
         <h2>파일 선택</h2>
         <label id="dropZone" class="drop-zone" for="fileInput">
-          <input id="fileInput" type="file" accept=".muo">
+          <input id="fileInput" type="file" accept=".muo,.xml">
           <strong>파일을 끌어오시거나 클릭해서 선택해 주세요</strong>
-          <span>게임에서 내보낸 .muo 파일만 지원합니다</span>
+          <span>게임에서 내보낸 MUO 설정 파일을 선택해 주세요</span>
         </label>
 
         <div class="path-helper">
@@ -71,7 +71,7 @@
         </div>
 
         <div class="actions">
-          <button id="processButton" class="primary" disabled>수정 MUO 다운로드</button>
+          <button id="processButton" class="primary" disabled>수정 파일 다운로드</button>
           <button id="clearButton" class="secondary" disabled>선택 초기화</button>
         </div>
       </section>
@@ -79,7 +79,7 @@
       <section class="card status-card">
         <h2>처리 상태</h2>
         <ul class="status-list">
-          <li><span>대상 파일</span><strong>환경설정 내보내기 .muo</strong></li>
+          <li><span>대상 파일</span><strong>MUO</strong></li>
           <li><span>변경 항목</span><strong>DummyCharRenderModeFPS</strong></li>
           <li><span>적용 값</span><strong>-1</strong></li>
         </ul>
@@ -102,8 +102,9 @@
         <ul>
           <li>이 도구는 간소화 기능 시작 FPS 값을 <code>-1</code>로 바꾸는 용도입니다.</li>
           <li>파일이 이미 <code>-1</code> 상태이면 별도 다운로드 없이 안내해 드립니다.</li>
+          <li>현재 클라이언트에서는 게임에서 내보낸 <code>MUO</code> 파일을 사용하는 것을 권장합니다.</li>
           <li>가져올 파일은 <code>문서\마비노기\설정\목록</code> 폴더에 있어야 합니다.</li>
-          <li>내보내기와 가져오기에서는 <strong>환경설정</strong> 항목만 체크하는 것을 권장합니다.</li>
+          <li>내보내기와 가져오기에서는 <strong>환경설정 → 그래픽-효과</strong> 항목만 체크하는 것을 권장합니다.</li>
           <li>파일은 서버로 전송되지 않으며 브라우저 안에서만 처리됩니다.</li>
         </ul>
       </section>
